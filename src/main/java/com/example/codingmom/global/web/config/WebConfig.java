@@ -1,4 +1,4 @@
-package com.example.codingmom.global.WebConfig;
+package com.example.codingmom.global.web.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

@@ -1,4 +1,4 @@
-package com.example.codingmom.domain.user.presentation.controller;
+package com.example.codingmom.domain.user.presentation;
 
 import com.example.codingmom.domain.user.service.KakaoService;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +15,13 @@ public class KakaoController {
     private final KakaoService kakaoService;
 
     @GetMapping("/getKakaoUserInfo")
-    public Map<String, Object> getKakaoUserInfo(@RequestParam(value = "code") String code) throws Exception {
+    public Map<String, Object> getKakaoUserInfo(@RequestParam(value = "code") String code) {
         String access_code = kakaoService.getAccessToken(code);
         return kakaoService.getUserInfo(access_code);
     }
 
     @PostMapping("/kakaoLogin")
-    public Map<String, String> KakaoLogin(@Param(value = "k_id") String k_id) throws Exception {
+    public Map<String, String> KakaoLogin(@Param(value = "k_id") String k_id) {
         return kakaoService.KakaoLogin(k_id);
     }
 }

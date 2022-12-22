@@ -2,7 +2,7 @@ package com.example.codingmom.domain.user.service;
 
 import com.example.codingmom.domain.user.entity.User;
 import com.example.codingmom.domain.user.entity.repository.UserRepository;
-import com.example.codingmom.domain.user.presentation.dto.UserDto;
+import com.example.codingmom.domain.user.presentation.dto.response.UserDto;
 import com.example.codingmom.global.security.jwt.JwtTokenProvider;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -24,16 +24,6 @@ public class KakaoService {
 
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
-
-    @Transactional
-    public Map<String, String> KakaoLogin(String k_id){
-        Optional<User> user = userRepository.findByKakaoid(k_id);
-        if(user.isPresent()) {
-            UserDto dto = new UserDto(user.get());
-            return jwtTokenProvider.createAccessToken(dto.getKakaoid(), dto.getRoles());
-        }
-        return null;
-    }
 
     public String getAccessToken(String auth_code) {
         String access_Token = "";
@@ -89,7 +79,7 @@ public class KakaoService {
     }
 
 
-    public Map<String, Object> getUserInfo(String access_token) throws IOException {
+    public Map<String, Object> getUserInfo(String access_token){
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, Object> result = new HashMap<>();
         try {
@@ -137,7 +127,7 @@ public class KakaoService {
     }
 
 
-    public Map<String, Object> getUserInfoById(String k_id) throws IOException {
+    public Map<String, Object> getUserInfoById(String k_id) {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, Object> result = new HashMap<>();
         long a = Long.parseLong(k_id);
