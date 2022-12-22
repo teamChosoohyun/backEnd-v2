@@ -1,4 +1,4 @@
-package com.example.codingmom.domain.user.presentation.dto;
+package com.example.codingmom.domain.user.presentation.dto.response;
 
 import com.example.codingmom.domain.user.entity.Role;
 import com.example.codingmom.domain.user.entity.User;

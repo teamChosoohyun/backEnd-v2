@@ -21,30 +21,32 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false, length = 30)
     private String username;
 
-    @Column
+    @Column(nullable = false, length = 30)
     private String password;
 
-    @Column
+    @Column(nullable = false, length = 10)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String kakaoid;
 
-    @Column
+    @Column(nullable = false)
     private String k_img_url;
 
-    @Column
+    @Column(nullable = false, length = 1)
     private Long type;
 
-    @Column String category;
 
-    @Column(name = "ROLE", length = 4)
+    @Column(length = 1)
+    private String category;
+
+    @Column(name = "ROLE", length = 4, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
