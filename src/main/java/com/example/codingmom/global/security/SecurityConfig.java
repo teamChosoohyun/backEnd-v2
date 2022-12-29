@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/auth/**").permitAll()
                 .antMatchers("/api/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/kakao/**").permitAll()
                 .anyRequest().permitAll()
