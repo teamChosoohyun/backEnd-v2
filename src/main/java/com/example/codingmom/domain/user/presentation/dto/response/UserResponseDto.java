@@ -1,6 +1,5 @@
 package com.example.codingmom.domain.user.presentation.dto.response;
 
-import com.example.codingmom.domain.user.entity.Role;
 import com.example.codingmom.domain.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +7,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class UserDto {
+public class UserResponseDto {
     String name;
     Long type;
     String category;
@@ -19,7 +18,7 @@ public class UserDto {
     String password;
 
     @Builder
-    public UserDto(User user){
+    public UserResponseDto(User user){
         this.name = user.getName();
         this.category = user.getCategory();
         this.type = user.getType();

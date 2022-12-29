@@ -2,7 +2,6 @@ package com.example.codingmom.domain.user.service;
 
 import com.example.codingmom.domain.user.entity.User;
 import com.example.codingmom.domain.user.entity.repository.UserRepository;
-import com.example.codingmom.domain.user.presentation.dto.response.UserDto;
 import com.example.codingmom.global.security.jwt.JwtTokenProvider;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -10,7 +9,6 @@ import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -126,38 +124,11 @@ public class KakaoService {
         return result;
     }
 
-
-    public Map<String, Object> getUserInfoById(String k_id) {
-        String host = "https://kapi.kakao.com/v2/user/me";
-        Map<String, Object> result = new HashMap<>();
-        long a = Long.parseLong(k_id);
-        try {
-            URL url = new URL(host+"?secure_resource=false&property_keys=%5B%22properties.profile_image%22%5D&target_id_type=user_id&target_id="+a);
-
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Authorization", "KakaoAK "+ "e280c0079ce7831e329a32834290e627");
-            urlConnection.setRequestMethod("GET");
-
-            int responseCode = urlConnection.getResponseCode();
-            System.out.println("responseCode = " + responseCode);
-
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            String line = "";
-            String res = "";
-            while((line=br.readLine())!=null)
-            {
-                res+=line;
-            }
-            JsonParser parser = new JsonParser();
-            JsonObject obj = (JsonObject) parser.parse(res);
-            JsonObject properties = (JsonObject) obj.get("properties");
-            String k_img_url = properties.get("profile_image").toString();
-            result.put("k_img_url", k_img_url);
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public String KakaoLogin(String k_id){
+        Optional<User> user = userRepository.findByKakaoid(k_id);
+        if(user.isEmpty()){
+            return "guest";
         }
-        return result;
+        return "";
     }
 }

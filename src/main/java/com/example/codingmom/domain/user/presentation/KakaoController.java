@@ -21,7 +21,7 @@ public class KakaoController {
     }
 
     @PostMapping("/kakaoLogin")
-    public Map<String, String> KakaoLogin(@Param(value = "k_id") String k_id) {
+    public String KakaoLogin(@Param(value = "k_id") String k_id) {
         return kakaoService.KakaoLogin(k_id);
     }
 }
