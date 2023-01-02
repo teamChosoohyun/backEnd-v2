@@ -1,5 +1,6 @@
 package com.example.codingmom.domain.user.entity;
 
+import com.example.codingmom.domain.lecture.entity.Lecture;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,6 +43,9 @@ public class User implements UserDetails {
     @Column(name = "ROLE", length = 4, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    List<Lecture> lectures = new ArrayList<Lecture>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

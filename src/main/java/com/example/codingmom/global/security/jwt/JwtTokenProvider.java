@@ -61,11 +61,12 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies){
-            if(cookie.getName().equals("accessToken")) return cookie.getValue();
-        }
-        return null;
+//        Cookie[] cookies = request.getCookies();
+//        for (Cookie cookie : cookies){
+//            if(cookie.getName().equals("accessToken")) return cookie.getValue();
+//        }
+//        return null;
+        return request.getHeader("Authorization");
     }
 
     public boolean validateToken(String jwtToken) {

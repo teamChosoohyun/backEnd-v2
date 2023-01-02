@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,6 +26,9 @@ public class Lecture {
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User user;
+
+    @Column(nullable = false)
+    private Timestamp work_time;
 
     @Column
     @CreatedDate
