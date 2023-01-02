@@ -10,8 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -59,7 +61,11 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("Authorization");
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies){
+            if(cookie.getName().equals("accessToken")) return cookie.getValue();
+        }
+        return null;
     }
 
     public boolean validateToken(String jwtToken) {

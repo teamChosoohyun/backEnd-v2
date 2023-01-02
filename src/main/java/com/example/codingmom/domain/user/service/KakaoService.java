@@ -2,13 +2,17 @@ package com.example.codingmom.domain.user.service;
 
 import com.example.codingmom.domain.user.entity.User;
 import com.example.codingmom.domain.user.entity.repository.UserRepository;
+import com.example.codingmom.domain.user.facade.UserFacade;
+import com.example.codingmom.domain.user.presentation.dto.response.TokenResponseDto;
 import com.example.codingmom.global.security.jwt.JwtTokenProvider;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -22,6 +26,8 @@ public class KakaoService {
 
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserFacade userFacade;
+    private final PasswordEncoder passwordEncoder;
 
     public String getAccessToken(String auth_code) {
         String access_Token = "";
@@ -124,11 +130,18 @@ public class KakaoService {
         return result;
     }
 
-    public String KakaoLogin(String k_id){
+    public boolean KakaoLogin(String k_id, HttpServletResponse response){
         Optional<User> user = userRepository.findByKakaoid(k_id);
         if(user.isEmpty()){
-            return "guest";
+            return false;
         }
-        return "";
+        login(k_id, response);
+        return true;
+    }
+
+    private void login(String k_id, HttpServletResponse response){
+        User user = userFacade.findByKakaoid(k_id);
+        userFacade.checkKakaoid(user.getKakaoid(), passwordEncoder.encode(k_id));
+        userFacade.login(user, response);
     }
 }

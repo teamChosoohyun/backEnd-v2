@@ -1,10 +1,12 @@
-package com.example.codingmom.domain.user.presentation;
+package com.example.codingmom.domain.user.presentation.controller;
 
+import com.example.codingmom.domain.user.presentation.dto.response.TokenResponseDto;
 import com.example.codingmom.domain.user.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class KakaoController {
     }
 
     @PostMapping("/kakaoLogin")
-    public String KakaoLogin(@Param(value = "k_id") String k_id) {
-        return kakaoService.KakaoLogin(k_id);
+    public void KakaoLogin(@Param(value = "k_id") String k_id, HttpServletResponse response) {
+        kakaoService.KakaoLogin(k_id, response);
     }
 }

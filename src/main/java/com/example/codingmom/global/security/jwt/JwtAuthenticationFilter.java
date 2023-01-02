@@ -1,4 +1,4 @@
-package com.example.codingmom.global.security.jwt.filter;
+package com.example.codingmom.global.security.jwt;
 
 
 import com.example.codingmom.global.security.jwt.JwtTokenProvider;
@@ -25,7 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(token != null && jwtTokenProvider.validateToken(token)) {
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(req, res);
         }
-        filterChain.doFilter(req, res);
     }
 }

@@ -3,10 +3,10 @@ package com.example.codingmom.domain.user.exception;
 import com.example.codingmom.global.error.exception.CodingmomException;
 import com.example.codingmom.global.error.exception.ErrorCode;
 
-public class PasswordMismatchException extends CodingmomException {
+public class KakaoidMismatchException extends CodingmomException {
 
-    public final static PasswordMismatchException EXCEPTION = new PasswordMismatchException();
-    public PasswordMismatchException() {
+    public final static KakaoidMismatchException EXCEPTION = new KakaoidMismatchException();
+    public KakaoidMismatchException() {
         super(ErrorCode.PASSWORD_MISMATCH);
     }
 }

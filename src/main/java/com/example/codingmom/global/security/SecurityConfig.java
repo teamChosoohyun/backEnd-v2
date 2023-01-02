@@ -1,6 +1,6 @@
 package com.example.codingmom.global.security;
 
-import com.example.codingmom.global.security.jwt.filter.JwtAuthenticationFilter;
+import com.example.codingmom.global.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

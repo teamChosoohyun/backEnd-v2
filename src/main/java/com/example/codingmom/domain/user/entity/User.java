@@ -24,16 +24,10 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(unique = true, nullable = false, length = 30)
-    private String username;
-
-    @Column(nullable = false, length = 30)
-    private String password;
-
     @Column(nullable = false, length = 10)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String kakaoid;
 
     @Column(nullable = false)
@@ -41,7 +35,6 @@ public class User implements UserDetails {
 
     @Column(nullable = false, length = 1)
     private Long type;
-
 
     @Column(length = 1)
     private String category;

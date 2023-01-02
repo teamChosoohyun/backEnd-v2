@@ -12,11 +12,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class CreateUserDto {
-    @NotNull(message = "아이디를 입력해주세요.")
-    private String username;
-
-    @NotNull(message = "비밀번호를 입력해주세요.")
-    private String password;
     @NotNull
     private Long type;
     private String category;
@@ -27,13 +22,11 @@ public class CreateUserDto {
     @NotNull
     private String name;
     @Builder
-    public User toEntity(String password){
+    public User toEntity(String k_id){
         return User.builder()
-                .username(username)
-                .password(password)
                 .name(name)
                 .k_img_url(k_img_url)
-                .kakaoid(kakaoid)
+                .kakaoid(k_id)
                 .type(type)
                 .category(category)
                 .role(Role.USER)

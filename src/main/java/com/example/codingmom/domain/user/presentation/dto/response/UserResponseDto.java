@@ -11,20 +11,15 @@ public class UserResponseDto {
     String name;
     Long type;
     String category;
-    String kakaoid;
     String k_img_url;
     List<String> roles;
-    String username;
-    String password;
 
     @Builder
     public UserResponseDto(User user){
         this.name = user.getName();
         this.category = user.getCategory();
         this.type = user.getType();
-        this.kakaoid = user.getKakaoid();
         this.k_img_url = user.getK_img_url();
         this.roles = user.getRoles();
-        this.username = user.getUsername();
     }
 }

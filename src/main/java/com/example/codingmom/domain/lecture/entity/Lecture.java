@@ -3,6 +3,7 @@ package com.example.codingmom.domain.lecture.entity;
 import com.example.codingmom.domain.user.entity.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Lecture {
 
     @Id
@@ -34,6 +36,6 @@ public class Lecture {
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
     private LocalDateTime leaveWork;
 
-    @Column(nullable = false, length = 1)
-    private Long category;
+    @Column(nullable = false, length = 20)
+    private String category;
 }
