@@ -19,7 +19,7 @@ public class AuthService {
     @Transactional
     public void Join(CreateUserDto dto, HttpServletResponse response){
         userFacade.checkUser(dto.getKakaoid());
-        userRepository.save(dto.toEntity(dto.getKakaoid()));
-        userFacade.login(dto.toEntity(dto.getKakaoid()), response);
+        userRepository.save(dto.toEntity());
+        userFacade.login(dto.toEntity(), response);
     }
 }

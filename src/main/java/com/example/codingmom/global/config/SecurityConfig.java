@@ -1,8 +1,10 @@
-package com.example.codingmom.global.security;
+package com.example.codingmom.global.config;
 
 import com.example.codingmom.global.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -13,23 +15,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @RequiredArgsConstructor
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        return http
+        http
                 .httpBasic().disable()
                 .csrf().disable()
+                .cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/api/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/kakao/**").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
 
     @Bean

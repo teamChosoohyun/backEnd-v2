@@ -22,11 +22,11 @@ public class CreateUserDto {
     @NotNull
     private String name;
     @Builder
-    public User toEntity(String k_id){
+    public User toEntity(){
         return User.builder()
                 .name(name)
                 .k_img_url(k_img_url)
-                .kakaoid(k_id)
+                .kakaoid(kakaoid)
                 .type(type)
                 .category(category)
                 .role(Role.USER)

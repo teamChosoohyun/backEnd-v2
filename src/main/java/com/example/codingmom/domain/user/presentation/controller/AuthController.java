@@ -18,7 +18,7 @@ import javax.validation.Valid;
 public class AuthController {
     private final AuthService authService;
     @PostMapping("/join")
-    public void Join(@RequestBody @Valid CreateUserDto dto, HttpServletResponse response) {
+    public void Join(@RequestBody CreateUserDto dto, HttpServletResponse response) {
         authService.Join(dto, response);
     }
 }

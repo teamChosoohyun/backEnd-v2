@@ -8,7 +8,7 @@ import com.example.codingmom.domain.user.exception.UserNotFoundException;
 import com.example.codingmom.global.security.jwt.JwtTokenProvider;
 import com.example.codingmom.global.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 public class UserFacade {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final CookieUtil createCookie;
 
@@ -31,8 +30,8 @@ public class UserFacade {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
-    public void checkKakaoid(String password, String encodePassword){
-        if (!passwordEncoder.matches(password, encodePassword)){
+    public void checkKakaoid(String kakaoid, String getKakaoid){
+        if (!kakaoid.equals(getKakaoid)){
             throw KakaoidMismatchException.EXCEPTION;
         }
     }
@@ -41,7 +40,9 @@ public class UserFacade {
         String accessToken = jwtTokenProvider.createAccessToken(user.getKakaoid());
         String refreshToken = jwtTokenProvider.createRefreshToken(user.getKakaoid());
 
-        response.addCookie(createCookie.createCookie("accessToken", accessToken));
-        response.addCookie(createCookie.createCookie("refreshToken", refreshToken));
+        response.addHeader(HttpHeaders.SET_COOKIE,
+                createCookie.createCookie("accessToken", accessToken, 30 * 60 * 1000L).toString());
+        response.addHeader(HttpHeaders.SET_COOKIE,
+                createCookie.createCookie("refreshToken", refreshToken, 1000L * 60 * 60 * 24 * 14).toString());
     }
 }
