@@ -1,17 +1,22 @@
-package com.example.codingmom.domain.lecture.presentation.dto;
+package com.example.codingmom.domain.lecture.presentation.dto.request;
 
 import com.example.codingmom.domain.lecture.entity.Lecture;
 import com.example.codingmom.domain.user.entity.User;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-
+import java.time.LocalDateTime;
+@Getter
+@Setter
 public class goWorkRequestDto {
+    @NotNull
+    private Long l_id;
 
-    @NotNull
-    private User user;
-    @NotNull
-    private String category;
+    @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
+    private LocalDateTime goWork;
 
     @Builder
     public Lecture toEntity(Lecture lecture){
@@ -19,8 +24,8 @@ public class goWorkRequestDto {
                 .id(lecture.getId())
                 .user(lecture.getUser())
                 .category(lecture.getCategory())
-                .goWork(null)
-                .leaveWork(lecture.getLeaveWork())
+                .goWork(goWork)
+                .leaveWork(null)
                 .build();
     }
 }

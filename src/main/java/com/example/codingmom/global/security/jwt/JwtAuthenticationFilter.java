@@ -58,6 +58,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             e.printStackTrace();
             throw AuthExpiredException.EXCEPTION;
         }
+        filterChain.doFilter(req, res);
     }
 
     private void checkAccessToken(HttpServletRequest req){

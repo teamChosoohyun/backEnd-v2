@@ -17,7 +17,7 @@ public class CodingmomExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.CONFLICT)
     @ExceptionHandler(CodingmomException.class)
-    public ErrorResponse handleStupetitionException(CodingmomException e, HttpServletRequest request) {
+    public ErrorResponse hand(CodingmomException e, HttpServletRequest request) {
         log.error("errorCode: {}, url: {}, message: {}",
                 e.getErrorCode(), request.getRequestURI(), e.getMessage());
 
