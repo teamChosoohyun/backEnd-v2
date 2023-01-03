@@ -2,6 +2,7 @@ package com.example.codingmom.global.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,8 +14,8 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
@@ -42,13 +43,11 @@ public class JwtTokenProvider {
     }
 
     public String createAccessToken(String username){
-        Long accessTokenValidTime = 30 * 60 * 1000L;
-        return createToken(username, accessTokenValidTime);
+        return createToken(username, 30 * 60 * 1000L);
     }
 
     public String createRefreshToken(String username){
-        Long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 14;
-        return createToken(username, refreshTokenValidTime);
+        return createToken(username, 1000L * 60 * 60 * 24 * 14);
     }
 
     public Authentication getAuthentication(String token) {
@@ -59,16 +58,7 @@ public class JwtTokenProvider {
     public String getUserPk(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
-
-    public String resolveToken(HttpServletRequest request) {
-//        Cookie[] cookies = request.getCookies();
-//        for (Cookie cookie : cookies){
-//            if(cookie.getName().equals("accessToken")) return cookie.getValue();
-//        }
-//        return null;
-        return request.getHeader("Authorization");
-    }
-
+    
     public boolean validateToken(String jwtToken) {
         try{
             Jws<Claims> claims  = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);

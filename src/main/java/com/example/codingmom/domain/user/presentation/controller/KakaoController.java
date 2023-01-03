@@ -22,8 +22,8 @@ public class KakaoController {
         return kakaoService.getUserInfo(access_code);
     }
 
-    @PostMapping("/kakaoLogin")
-    public void KakaoLogin(@Param(value = "k_id") String k_id, HttpServletResponse response) {
-        kakaoService.KakaoLogin(k_id, response);
+    @GetMapping("/kakaoLogin")
+    public boolean KakaoLogin(@Param(value = "k_id") String k_id, HttpServletResponse response) {
+        return kakaoService.KakaoLogin(k_id, response);
     }
 }

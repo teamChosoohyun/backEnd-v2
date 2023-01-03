@@ -14,7 +14,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/info")
-    public UserResponseDto getUserInfo(@RequestHeader("Authorization") String token){
+    public UserResponseDto getUserInfo(@CookieValue("accessToken") String token){
         return userService.getUserInfo(token);
     }
 }

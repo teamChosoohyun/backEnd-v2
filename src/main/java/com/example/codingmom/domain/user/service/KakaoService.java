@@ -141,7 +141,7 @@ public class KakaoService {
 
     private void login(String k_id, HttpServletResponse response){
         User user = userFacade.findByKakaoid(k_id);
-        userFacade.checkKakaoid(user.getKakaoid(), passwordEncoder.encode(k_id));
+        userFacade.checkKakaoid(user.getKakaoid(), k_id);
         userFacade.login(user, response);
     }
 }
