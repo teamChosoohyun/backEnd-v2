@@ -37,7 +37,7 @@ public class User implements UserDetails {
     private String k_img_url;
 
     @Column(nullable = false, length = 1)
-    private Long type;
+    private int type;
 
     @Column(length = 1)
     private String category;

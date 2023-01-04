@@ -45,7 +45,7 @@ public class JwtTokenProvider {
     }
 
     public String createRefreshToken(String username, List<String> roles){
-        return createToken(username, 1000L * 60 * 60 * 24 * 14, roles);
+        return createToken(username, 60 * 60 * 24 * 14 * 1000L, roles);
     }
 
     public Authentication getAuthentication(String token) {

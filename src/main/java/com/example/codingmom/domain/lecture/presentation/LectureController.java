@@ -18,6 +18,7 @@ public class LectureController {
 
     @PostMapping("make_work")
     public void MakeWork(@RequestBody makeWorkRequestDto dto){lectureService.makeWork(dto);}
+
     @PutMapping("/go_work")
     public void GoWork(@RequestBody goWorkRequestDto dto){
         lectureService.goWork(dto);
