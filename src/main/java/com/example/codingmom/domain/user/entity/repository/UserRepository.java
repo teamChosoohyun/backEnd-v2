@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByKakaoid(String Kakaoid);
+    Optional<User> findByIdAndType(Long id,Long type);
 }
