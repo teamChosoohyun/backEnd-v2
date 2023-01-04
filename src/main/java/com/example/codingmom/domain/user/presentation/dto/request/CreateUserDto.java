@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.Collections;
 
 @Getter
 @Setter
@@ -29,7 +31,8 @@ public class CreateUserDto {
                 .kakaoid(kakaoid)
                 .type(type)
                 .category(category)
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
+                .roles(Collections.singletonList("ROLE_USER"))
                 .build();
     }
 }

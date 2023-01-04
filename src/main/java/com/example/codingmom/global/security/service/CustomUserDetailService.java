@@ -1,6 +1,7 @@
 package com.example.codingmom.global.security.service;
 
 import com.example.codingmom.domain.user.entity.repository.UserRepository;
+import com.example.codingmom.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +16,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return (UserDetails) userRepository.findByKakaoid(username)
+        return userRepository.findByKakaoid(username)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자가 없음"));
     }
 

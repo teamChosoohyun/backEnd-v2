@@ -36,13 +36,21 @@ public class UserFacade {
         }
     }
 
-    public void login(User user, HttpServletResponse response){
-        String accessToken = jwtTokenProvider.createAccessToken(user.getKakaoid());
-        String refreshToken = jwtTokenProvider.createRefreshToken(user.getKakaoid());
+    public void login(String kakaoid, HttpServletResponse response){
+
+        User user = findByKakaoid(kakaoid);
+
+        String accessToken = jwtTokenProvider.createAccessToken(kakaoid, user.getRoles());
+        String refreshToken = jwtTokenProvider.createRefreshToken(kakaoid, user.getRoles());
 
         response.addHeader(HttpHeaders.SET_COOKIE,
                 createCookie.createCookie("accessToken", accessToken, 30 * 60 * 1000L).toString());
         response.addHeader(HttpHeaders.SET_COOKIE,
                 createCookie.createCookie("refreshToken", refreshToken, 1000L * 60 * 60 * 24 * 14).toString());
+
+//        return TokenResponseDto.builder()
+//                .accessToken(accessToken)
+//                .refreshToken(refreshToken)
+//                .build();
     }
 }
