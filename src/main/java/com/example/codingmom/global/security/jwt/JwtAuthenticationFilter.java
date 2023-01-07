@@ -56,6 +56,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void checkRefreshToken(HttpServletRequest req, HttpServletResponse res){
+        Cookie refreshToken = cookieUtil.getCookie(req, "refreshToken");
+
+        if(refreshToken == null){
+            res.setHeader(HttpHeaders.SET_COOKIE, cookieUtil.createCookie("accessToken", "", 0L).toString());
+            return;
+        }
+        
         try{
             Cookie accessToken = cookieUtil.getCookie(req, "accessToken");
             User user = userFacade.findByKakaoid(jwtTokenProvider.parseJwtToken(accessToken.getValue()).getSubject());

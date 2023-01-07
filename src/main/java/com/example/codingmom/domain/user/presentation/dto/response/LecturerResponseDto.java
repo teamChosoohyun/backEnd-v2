@@ -15,4 +15,11 @@ public class LecturerResponseDto {
     @NotNull
     private String category;
 
+    @Builder
+    public LecturerResponseDto(Long id, String name, String k_img_url, String category){
+        this.id = id;
+        this.name = name;
+        this.k_img_url = k_img_url;
+        this.category = category;
+    }
 }
