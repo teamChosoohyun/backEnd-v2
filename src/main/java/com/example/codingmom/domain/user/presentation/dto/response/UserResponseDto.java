@@ -12,7 +12,7 @@ public class UserResponseDto {
     Long type;
     String category;
     String k_img_url;
-    List<String> roles;
+    String kakaoid;
 
     @Builder
     public UserResponseDto(User user){
@@ -20,6 +20,6 @@ public class UserResponseDto {
         this.category = user.getCategory();
         this.type = user.getType();
         this.k_img_url = user.getK_img_url();
-        this.roles = user.getRoles();
+        this.kakaoid = getKakaoid();
     }
 }

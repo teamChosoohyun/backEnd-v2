@@ -5,11 +5,13 @@ import com.example.codingmom.domain.user.facade.UserFacade;
 import com.example.codingmom.domain.user.presentation.dto.request.CreateUserDto;
 import com.example.codingmom.domain.user.presentation.dto.response.TokenResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -19,7 +21,14 @@ public class AuthService {
     @Transactional
     public void Join(CreateUserDto dto, HttpServletResponse response){
         userFacade.checkUser(dto.getKakaoid());
+
+        log.info(dto.getName());
+        log.info(dto.getCategory());
+        log.info(dto.getK_img_url());
+        log.info(dto.getKakaoid());
+        log.info(dto.getType().toString());
+
         userRepository.save(dto.toEntity());
-        userFacade.login(dto.toEntity(), response);
+        userFacade.login(dto.getKakaoid(), response);
     }
 }

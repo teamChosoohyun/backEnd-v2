@@ -16,15 +16,17 @@ public class LectureController {
 
     private final LectureService lectureService;
 
-    @PostMapping("/make_work")
-    public void MakeWork(@RequestBody @Valid makeWorkRequestDto dto){lectureService.makeWork(dto);}
+    @PostMapping("make_work")
+    public void MakeWork(@RequestBody makeWorkRequestDto dto){lectureService.makeWork(dto);}
+
     @PutMapping("/go_work")
-    public void GoWork(@RequestBody @Valid goWorkRequestDto dto){
+    public void GoWork(@RequestBody goWorkRequestDto dto){
         lectureService.goWork(dto);
     }
 
     @PutMapping("/leave_work")
-    public void LeaveWork(@RequestBody @Valid leaveWorkRequestDto dto){
+    public void LeaveWork(@RequestBody leaveWorkRequestDto dto){
         lectureService.leaveWork(dto);
     }
+
 }

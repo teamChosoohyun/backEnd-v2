@@ -13,6 +13,11 @@ public class UserController {
 
     private final UserService userService;
 
+//    @GetMapping("/info")
+//    public UserResponseDto getUserInfo(HttpServletRequest req){
+//        return userService.getUserInfo(req);
+//    }
+
     @GetMapping("/info")
     public UserResponseDto getUserInfo(@CookieValue("accessToken") String token){
         return userService.getUserInfo(token);

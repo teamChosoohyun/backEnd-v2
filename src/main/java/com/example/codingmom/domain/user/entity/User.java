@@ -6,12 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -40,7 +42,7 @@ public class User implements UserDetails {
     @Column(length = 1)
     private String category;
 
-    @Column(name = "ROLE", length = 4, nullable = false)
+    @Column(name = "ROLE", length = 100, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -53,7 +55,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -63,7 +67,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return kakaoid;
     }
 
     @Override

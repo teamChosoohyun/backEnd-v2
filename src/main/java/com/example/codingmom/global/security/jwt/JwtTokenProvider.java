@@ -1,5 +1,6 @@
 package com.example.codingmom.global.security.jwt;
 
+import com.example.codingmom.global.security.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,12 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Slf4j
@@ -22,16 +20,16 @@ public class JwtTokenProvider {
     @Value("${token.secretKey}")
     private String secretKey;
 
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailService customUserDetailService;
 
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, Long time) {
+    public String createToken(String username, Long time, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("username", username);
+        claims.put("roles", roles);
         Date now = new Date();
 
         return Jwts.builder()
@@ -42,16 +40,16 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createAccessToken(String username){
-        return createToken(username, 30 * 60 * 1000L);
+    public String createAccessToken(String username, List<String> roles){
+        return createToken(username, 30 * 60 * 1000L, roles);
     }
 
-    public String createRefreshToken(String username){
-        return createToken(username, 1000L * 60 * 60 * 24 * 14);
+    public String createRefreshToken(String username, List<String> roles){
+        return createToken(username, 1000L * 60 * 60 * 24 * 14, roles);
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
+        UserDetails userDetails = customUserDetailService.loadUserByUsername(getUserPk(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -67,6 +65,7 @@ public class JwtTokenProvider {
             return false;
         }
     }
+
     public Claims parseJwtToken(String token){
         try{
             return Jwts.parser()
