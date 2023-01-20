@@ -46,8 +46,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
     @OneToMany(mappedBy = "user")
-    List<Lecture> lectures = new ArrayList<Lecture>();
+    @Builder.Default
+    List<Lecture> lectures = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

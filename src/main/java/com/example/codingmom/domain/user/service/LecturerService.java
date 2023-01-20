@@ -19,15 +19,10 @@ public class LecturerService {
     private final UserFacade userFacade;
 
     public LecturerResponseDto getLecturerInfo(Long id){
-        User user = userRepository.findByIdAndType(id, 2)
+        User user = userRepository.findByIdAndType(id, 1)
                 .orElseThrow(() -> LecturerNotFoundException.EXCEPTION);
 
-        return LecturerResponseDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .k_img_url(user.getK_img_url())
-                .category(user.getCategory())
-                .build();
+        return new LecturerResponseDto(user);
     }
 
     public List<LecturerResponseDto> getLecturerList(){
@@ -36,7 +31,7 @@ public class LecturerService {
     }
 
     public List<LecturerResponseDto> getLecturerByCategory(String category) {
-        List<User> lecturerList = userRepository.findByTypeAndCategory(2, category);
+        List<User> lecturerList = userRepository.findByTypeAndCategory(1, category);
         return userFacade.getLecturerList(lecturerList);
     }
 }

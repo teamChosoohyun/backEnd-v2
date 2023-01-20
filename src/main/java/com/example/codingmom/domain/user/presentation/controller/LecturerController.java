@@ -14,7 +14,7 @@ public class LecturerController {
     private final LecturerService lecturerService;
 
     @GetMapping("/lecturer/{id}")
-    public LecturerResponseDto GetLecturer(@PathVariable Long id){
+    public LecturerResponseDto getLecturer(@PathVariable Long id){
         return lecturerService.getLecturerInfo(id);
     }
 
@@ -23,7 +23,7 @@ public class LecturerController {
         return lecturerService.getLecturerList();
     }
 
-    @GetMapping("/lecturer/{category}")
+    @GetMapping("/lecturer/info/{category}")
     public List<LecturerResponseDto> getLecturerByCategory(@PathVariable String category){
         return lecturerService.getLecturerByCategory(category);
     }

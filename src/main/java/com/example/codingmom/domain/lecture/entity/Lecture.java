@@ -39,7 +39,4 @@ public class Lecture {
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
     private LocalDateTime leaveWork;
-
-    @Column(nullable = false, length = 20)
-    private String category;
 }

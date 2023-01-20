@@ -24,7 +24,6 @@ public class makeWorkRequestDto {
         return Lecture.builder()
                 .user(user)
                 .work_time(work_time)
-                .category(category)
                 .goWork(null)
                 .leaveWork(null)
                 .build();

@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 public class UserResponseDto {
     String name;
-    Long type;
+    int type;
     String category;
     String k_img_url;
     String kakaoid;
@@ -20,6 +20,6 @@ public class UserResponseDto {
         this.category = user.getCategory();
         this.type = user.getType();
         this.k_img_url = user.getK_img_url();
-        this.kakaoid = getKakaoid();
+        this.kakaoid = user.getKakaoid();
     }
 }

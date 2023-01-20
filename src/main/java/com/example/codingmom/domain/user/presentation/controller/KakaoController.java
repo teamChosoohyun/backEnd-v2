@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/kakao")
+@RequestMapping("/api/kakao")
 public class KakaoController {
 
     private final KakaoService kakaoService;
@@ -27,3 +27,4 @@ public class KakaoController {
         return kakaoService.KakaoLogin(k_id, response);
     }
 }
+    

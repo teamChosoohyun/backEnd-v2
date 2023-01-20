@@ -59,7 +59,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Cookie refreshToken = cookieUtil.getCookie(req, "refreshToken");
 
         if(refreshToken == null){
-            res.setHeader(HttpHeaders.SET_COOKIE, cookieUtil.createCookie("accessToken", "", 0L).toString());
+            res.setHeader(HttpHeaders.SET_COOKIE, cookieUtil.createCookie("accessToken", null, 0L).toString());
+            res.setHeader(HttpHeaders.SET_COOKIE, cookieUtil.createCookie("refreshToken", null, 0L).toString());
             return;
         }
         

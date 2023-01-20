@@ -15,7 +15,7 @@ import java.util.Collections;
 @Setter
 public class CreateUserDto {
     @NotNull
-    private Long type;
+    private int type;
     private String category;
     @NotNull
     private String kakaoid;

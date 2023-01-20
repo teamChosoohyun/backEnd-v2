@@ -125,18 +125,12 @@ public class KakaoService {
         return result;
     }
 
-    public boolean KakaoLogin(String k_id, HttpServletResponse response){
+    public boolean KakaoLogin(String k_id, HttpServletResponse response) {
         Optional<User> user = userRepository.findByKakaoid(k_id);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             return false;
         }
-        login(k_id, response);
+        userFacade.login(user.get().getKakaoid(), response);
         return true;
-    }
-
-    private void login(String k_id, HttpServletResponse response){
-        User user = userFacade.findByKakaoid(k_id);
-        userFacade.checkKakaoid(user.getKakaoid(), k_id);
-        userFacade.login(user.getKakaoid(), response);
     }
 }

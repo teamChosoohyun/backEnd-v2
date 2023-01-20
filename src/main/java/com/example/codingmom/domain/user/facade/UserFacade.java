@@ -2,7 +2,6 @@ package com.example.codingmom.domain.user.facade;
 
 import com.example.codingmom.domain.user.entity.User;
 import com.example.codingmom.domain.user.entity.repository.UserRepository;
-import com.example.codingmom.domain.user.exception.KakaoidMismatchException;
 import com.example.codingmom.domain.user.exception.UserAlreadyExistsException;
 import com.example.codingmom.domain.user.exception.UserNotFoundException;
 import com.example.codingmom.domain.user.presentation.dto.response.LecturerResponseDto;
@@ -33,12 +32,6 @@ public class UserFacade {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
-    public void checkKakaoid(String kakaoid, String getKakaoid){
-        if (!kakaoid.equals(getKakaoid)){
-            throw KakaoidMismatchException.EXCEPTION;
-        }
-    }
-
     public void login(String kakaoid, HttpServletResponse response){
 
         User user = findByKakaoid(kakaoid);
@@ -50,26 +43,12 @@ public class UserFacade {
                 createCookie.createCookie("accessToken", accessToken, 30 * 60 * 1000L).toString());
         response.addHeader(HttpHeaders.SET_COOKIE,
                 createCookie.createCookie("refreshToken", refreshToken, 1000L * 60 * 60 * 24 * 14).toString());
-
-//        return TokenResponseDto.builder()
-//                .accessToken(accessToken)
-//                .refreshToken(refreshToken)
-//                .build();
     }
 
     public List<LecturerResponseDto> getLecturerList(List<User> lecturerList){
         List<LecturerResponseDto> list = new ArrayList<>();
 
-        for(User u : lecturerList){
-            list.add(
-                    LecturerResponseDto.builder()
-                            .id(u.getId())
-                            .name(u.getName())
-                            .k_img_url(u.getK_img_url())
-                            .category(u.getCategory())
-                            .build()
-            );
-        }
+        for(User u : lecturerList) list.add(new LecturerResponseDto(u));
 
         return list;
     }

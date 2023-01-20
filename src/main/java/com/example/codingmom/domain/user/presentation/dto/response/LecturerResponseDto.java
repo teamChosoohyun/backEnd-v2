@@ -1,25 +1,24 @@
 package com.example.codingmom.domain.user.presentation.dto.response;
 
+import com.example.codingmom.domain.user.entity.User;
 import lombok.Builder;
-import lombok.Setter;
+import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
-@Setter
+@Getter
 public class LecturerResponseDto {
-    @NotNull
+
     private Long id;
-    @NotNull
     private String name;
-    @NotNull
     private String k_img_url;
-    @NotNull
+    private String kakaoid;
     private String category;
 
     @Builder
-    public LecturerResponseDto(Long id, String name, String k_img_url, String category){
-        this.id = id;
-        this.name = name;
-        this.k_img_url = k_img_url;
-        this.category = category;
+    public LecturerResponseDto(User user){
+        this.id = user.getId();
+        this.name = user.getName();
+        this.k_img_url = user.getK_img_url();
+        this.kakaoid = user.getKakaoid();
+        this.category = user.getCategory();
     }
 }

@@ -26,7 +26,6 @@ public class AuthService {
         log.info(dto.getCategory());
         log.info(dto.getK_img_url());
         log.info(dto.getKakaoid());
-        log.info(dto.getType().toString());
 
         userRepository.save(dto.toEntity());
         userFacade.login(dto.getKakaoid(), response);

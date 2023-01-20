@@ -23,7 +23,6 @@ public class goWorkRequestDto {
         return Lecture.builder()
                 .id(lecture.getId())
                 .user(lecture.getUser())
-                .category(lecture.getCategory())
                 .goWork(goWork)
                 .leaveWork(null)
                 .build();

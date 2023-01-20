@@ -23,7 +23,6 @@ public class leaveWorkRequestDto {
         return Lecture.builder()
                 .id(lecture.getId())
                 .user(lecture.getUser())
-                .category(lecture.getCategory())
                 .goWork(lecture.getGoWork())
                 .leaveWork(leaveWork)
                 .build();
