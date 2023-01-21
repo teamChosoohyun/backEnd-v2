@@ -47,11 +47,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 checkRefreshToken(req, res);
             }
         }
-//        String token = req.getHeader("Authorization");
-//        if(token != null && jwtTokenProvider.validateToken(token)){
-//            Authentication authentication = jwtTokenProvider.getAuthentication(token);
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//        }
         filterChain.doFilter(req, res);
     }
 
@@ -65,8 +60,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         
         try{
-            Cookie accessToken = cookieUtil.getCookie(req, "accessToken");
-            User user = userFacade.findByKakaoid(jwtTokenProvider.parseJwtToken(accessToken.getValue()).getSubject());
+            User user = userFacade.findByKakaoid(jwtTokenProvider.parseJwtToken(refreshToken.getValue()).getSubject());
             String newToken = jwtTokenProvider.createAccessToken(user.getKakaoid(), user.getRoles());
 
             ResponseCookie cookie = cookieUtil.createCookie("accessToken", newToken, 30 * 60 * 1000L);
